@@ -1,6 +1,12 @@
 import { useState } from 'react';
 
 
+const CajitaColor = ({ fondo }) => (
+  <div className="h-32 w-32 mx-auto text-center content-center font-bold" style={{ backgroundColor: fondo }}> 
+    {fondo}
+  </div>
+)
+
 function App() {
 
   const randomElement = (arr) => arr[Math.floor(Math.random()*arr.length)]
@@ -38,9 +44,7 @@ function App() {
       >
         {
           listaColores.map(color => (
-            <div className="h-32 w-32 mx-auto text-center content-center font-bold" style={{ backgroundColor: color }}> 
-              {color}
-            </div>
+            <CajitaColor fondo={color} />
           ))
         }
 
