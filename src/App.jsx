@@ -1,11 +1,31 @@
 import { useState } from 'react';
 
 
-const CajitaColor = ({ fondo }) => (
-  <div className="h-32 w-32 mx-auto text-center content-center font-bold" style={{ backgroundColor: fondo }}> 
+const CajitaColor = ({ fondo }) => {
+  // parte logica del componente
+  const [favorite, setFavorite] = useState(false);
+
+  // parte visual del componente
+
+  const isFavoriteActivated = () => {
+    if (favorite) 
+      return <i class="fa-solid fa-heart" onClick={() => setFavorite(false)}></i> 
+    else null
+  }
+
+  return (
+    <div className="h-32 w-32 mx-auto text-center content-center font-bold"
+      style={{ backgroundColor: fondo }}
+    > 
     {fondo}
-  </div>
-)
+      <div className="flex justify-center items-center mt-2">
+        {!favorite && <i class="fa-regular fa-heart" onClick={() => setFavorite(true)}></i>}
+        {/* Renderizado Condicional */}
+        {isFavoriteActivated()}
+      </div>
+    </div>
+  )
+}
 
 function App() {
 
@@ -21,7 +41,7 @@ function App() {
   }
 
   // todos los ganchos o supeFunciones van dentro del componente
-  const [listaColores, setListaColors] = useState([generateRandomColor()])
+  const [listaColores, setListaColors] = useState([generateRandomColor(),generateRandomColor(),generateRandomColor()])
 
   const addColor = (event) => {
 
@@ -29,7 +49,7 @@ function App() {
     const anchoDelElemento = event.target.offsetWidth
     if (posicionHorizontalCursor > (anchoDelElemento) / 2) {
       
-      setListaColors([ ...listaColores, generateRandomColor() ])
+      setListaColors([ generateRandomColor(), ...listaColores ])
       return;
     }
     
